@@ -2,14 +2,14 @@ pipeline{
     //Directives
     agent any
     tools {
-        maven 'maven'
+        maven 'Maven'
     }
 
     stage {
         //stage 1. Build
         stage ('Build'){
             steps {
-                sh 'mvn clean install packagae'
+                sh 'mvn clean packagae'
             }
         }
 
