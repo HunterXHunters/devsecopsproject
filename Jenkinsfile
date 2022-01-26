@@ -22,7 +22,7 @@ pipeline {
     // Stage 3: Deploying
     stage ('Deploy') {
       steps {
-          echo 'deploying'
+          echo 'deployed in the Nexus'
        }
     }
 
