@@ -1,32 +1,26 @@
-pipeline{
-    //Directives
-    agent any
-    tools {
-        maven 'Maven'
+pipeline {
+  agent any 
+  tools {
+    maven 'Maven'
+  }
+  stages {
+    stage ('Initialize') {
+      steps {
+        sh '''
+                    echo "PATH = ${PATH}"
+                    echo "M2_HOME = ${M2_HOME}"
+            ''' 
+      }
+    }
+    
+
+    stage ('Build') {
+      steps {
+      sh 'mvn clean package'
+       }
     }
 
-    stage {
-        //stage 1. Build
-        stage ('Build'){
-            steps {
-                sh 'mvn clean packagae'
-            }
-        }
 
-        // Stage 2: Testing
-        stage ('Test'){
-            steps{
-                echo 'testing.......'
-            }
-        }
-
-        // Stage 3: Deploying
-
-        stage ('Deploy'){
-            steps{
-                echo 'deploying.....'
-            }
-        }
-    }
+    
+  }
 }
-
