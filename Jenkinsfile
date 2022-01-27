@@ -4,6 +4,18 @@ pipeline {
     maven 'Maven'
   }
   stages {
+    
+        // Stage 2: Testing
+    
+    stage ('Testing'){
+        steps{
+            snykSecurity failOnIssues: false, organisation: 'sunerarech', projectName: 'devsecops', snykInstallation: 'Please define a Snyk installation in the Jenkins Global Tool Configuration. This task will not run without a Snyk installation.', snykTokenId: 'Snyk-Jenkins', targetFile: 'pom.xml'
+        }
+    }
+    
+    
+    
+    
     // Stage 1: Build
     stage ('Build') {
       steps {
@@ -15,21 +27,11 @@ pipeline {
     
     stage ('Testing'){
         steps{
-            echo 'testing'
+            snykSecurity failOnIssues: false, organisation: 'sunerarech', projectName: 'devsecops', snykInstallation: 'Please define a Snyk installation in the Jenkins Global Tool Configuration. This task will not run without a Snyk installation.', snykTokenId: 'Snyk-Jenkins', targetFile: 'pom.xml'
         }
     }
     
-    // Stage 3: SCA
-    stage ('Source Composition Analysis') {
-      steps {
-         sh 'rm owasp* || true'
-         sh 'wget "https://raw.githubusercontent.com/HunterXHunters/devsecopsproject/main/owasp-dependency-check.sh?token=GHSAT0AAAAAABQ2NE2GZK3UH6TS5WTZ53GAYPSGZ3Q"'
-         sh 'chmod +x owasp-dependency-check.sh'
-         sh 'bash owasp-dependency-check.sh'
-         sh 'cat /var/lib/jenkins/OWASP-Dependency-Check/reports/dependency-check-report.xml'
-        
-      }
-    }
+
 
     // Stage 4: Deploying
     stage ('Deploy') {
