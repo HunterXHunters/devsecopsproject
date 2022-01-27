@@ -18,6 +18,16 @@ pipeline {
             echo 'testing'
         }
     }
+    
+    // Stage 3: SCA
+    
+    stage ('SCA'){
+        steps{
+            echo 'SCA'
+            sh "/usr/local/bin/trufflehog file:///root/devsecops/webapp"
+            echo "worked"
+        }
+    }
 
     // Stage 3: Deploying
     stage ('Deploy') {
