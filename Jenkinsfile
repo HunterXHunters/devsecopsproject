@@ -24,7 +24,7 @@ pipeline {
     stage ('SCA'){
         steps{
             echo 'SCA'
-            sh "/usr/local/bin/trufflehog file:///root/devsecops/webapp"
+            sh "bash script.sh"
             echo "worked"
         }
     }
