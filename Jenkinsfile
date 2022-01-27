@@ -24,7 +24,7 @@ pipeline {
     stage ('SCA'){
         steps{
             echo 'SCA'
-            sh "bash script.sh"
+            sh "bash /home/ec2-user/script.sh"
             echo "worked"
         }
     }
