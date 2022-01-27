@@ -23,7 +23,7 @@ pipeline {
     stage ('Source Composition Analysis') {
       steps {
          sh 'rm owasp* || true'
-         sh 'wget "https://raw.githubusercontent.com/HunterXHunters/devsecopsproject/main/owasp-dependency-check.sh?token=GHSAT0AAAAAABQ2NE2GZK3UH6TS5WTZ53GAYPSGZ3Q'
+         sh 'wget "https://raw.githubusercontent.com/HunterXHunters/devsecopsproject/main/owasp-dependency-check.sh?token=GHSAT0AAAAAABQ2NE2GZK3UH6TS5WTZ53GAYPSGZ3Q"'
          sh 'chmod +x owasp-dependency-check.sh'
          sh 'bash owasp-dependency-check.sh'
          sh 'cat /var/lib/jenkins/OWASP-Dependency-Check/reports/dependency-check-report.xml'
