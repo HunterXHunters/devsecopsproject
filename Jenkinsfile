@@ -20,16 +20,18 @@ pipeline {
     }
     
     // Stage 3: SCA
-    
-    stage ('SCA'){
-        steps{
-            echo 'SCA'
-            sh "sudo bash /home/ec2-user/script.sh"
-            echo "worked"
-        }
+    stage ('Source Composition Analysis') {
+      steps {
+         sh 'rm owasp* || true'
+         sh 'wget "https://raw.githubusercontent.com/cehkunal/webapp/master/owasp-dependency-check.sh" '
+         sh 'chmod +x owasp-dependency-check.sh'
+         sh 'bash owasp-dependency-check.sh'
+         sh 'cat /var/lib/jenkins/OWASP-Dependency-Check/reports/dependency-check-report.xml'
+        
+      }
     }
 
-    // Stage 3: Deploying
+    // Stage 4: Deploying
     stage ('Deploy') {
       steps {
           echo 'deployed in the Nexus'
