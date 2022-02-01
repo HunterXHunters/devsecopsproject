@@ -1,32 +1,38 @@
-pipeline{
-    //Directives
-    agent any
-    tools {
-        maven 'maven'
+pipeline {
+  agent any 
+  tools {
+    maven 'Maven'
+  }
+  stages {
+    // Stage 1: Build
+    stage ('Build') {
+      steps {
+          sh 'mvn clean install package'
+         //echo 'build'
+       }
     }
-
-    stage {
-        //stage 1. Build
-        stage ('Build'){
-            steps {
-                sh 'mvn clean install packagae'
-            }
-        }
-
-        // Stage 2: Testing
-        stage ('Test'){
-            steps{
-                echo 'testing.......'
-            }
-        }
-
-        // Stage 3: Deploying
-
-        stage ('Deploy'){
-            steps{
-                echo 'deploying.....'
-            }
+    
+    // Stage 2: Testing
+    
+    stage ('Testing'){
+        steps{
+            echo 'testing'
         }
     }
+    
+
+
+    // Stage 3: SonarQube Analysis
+    stage ('SAST') {
+      steps {
+          echo 'deployed in the Nexus'
+          withSonarQubeEnv('sonarqube'){
+            sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.7.0.1746:sonar'
+        }
+       }
+    }
+
+
+    
+  }
 }
-
